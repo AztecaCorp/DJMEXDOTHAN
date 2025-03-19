@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Request</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        input, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #status {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Request a Song</h1>
+
+    <form id="songRequestForm">
+        <input type="text" id="name" placeholder="Your Name" required />
+        <input type="text" id="song" placeholder="Song Request" required />
+        <textarea id="message" placeholder="Optional Message"></textarea>
+        <button type="button" onclick="sendRequest()">Send Request</button>
+    </form>
+
+    <div id="status"></div>
+
+    <h3>powered by Golden Azteca Corporation</h3>
+    <h3>Djmex &copy; All rights reserved</h3>
+
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <script type="text/javascript">
+        // Initialize EmailJS with your public key
+        document.addEventListener("DOMContentLoaded", function () {
+            emailjs.init("UI_-9oyRjZYBAE_F-");  // Replace with your actual public key
+        });
+
+        // Function to send the email when the button is clicked
+        function sendRequest() {
+            // Get user input values from the form
+            let name = document.getElementById("name").value;
+            let song = document.getElementById("song").value;
+            let message = document.getElementById("message").value;
+            let status = document.getElementById("status");
+
+            // Check if the user entered the necessary information
+            if (name.trim() === "" || song.trim() === "") {
+                alert("Please enter your name and song request.");
+                return;
+            }
+
+            // Prepare the email parameters to send
+            let emailParams = {
+                from_name: name,
+                song_name: song,
+                message: message
+            };
+
+            // Send the email via EmailJS
+            emailjs.send("service_3xilgf3", "template_bf5xrw7", emailParams)  // Replace with your actual Service ID and Template ID
+                .then(response => {
+                    console.log("Email sent successfully:", response);
+                    status.innerText = "✅ Your song request has been sent!";
+                })
+                .catch(error => {
+                    console.error("Error sending email:", error);
+                    status.innerText = "❌ Failed to send request. Please try again.";
+                });
+        }
+    </script>
+
+</body>
+</html>
