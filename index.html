@@ -53,19 +53,19 @@
 </head>
 <body>
 
-    <h1>Request a Song</h1>
+    <h1>Request a Song/solicitud de canción</h1>
 
     <form id="songRequestForm">
-        <input type="text" id="name" placeholder="Your Name" required />
-        <input type="text" id="song" placeholder="Song Request" required />
-        <textarea id="message" placeholder="Optional Message"></textarea>
-        <button type="button" onclick="sendRequest()">Send Request</button>
+        <input type="text" id="name" placeholder="Your Name/Su nombre" required />
+        <input type="text" id="song" placeholder="Song Request/solicitud de canción" required />
+        <textarea id="message" placeholder="Optional Message/mensaje opcional"></textarea>
+        <button id="disappearBtn" type="button" onclick="sendRequest()">Send Request/enviar solicitud</button>
     </form>
 
     <div id="status"></div>
 
-    <h3>powered by Golden Azteca Corporation</h3>
-    <h3>Djmex &copy; All rights reserved</h3>
+    <h3>powered by Golden Azteca Corporation/impulsado por Golden Azteca Corporation</h3>
+    <h3>Djmex &copy; All rights reserved/Djmex &copy; Reservados todos los derechos</h3>
 
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
@@ -75,6 +75,11 @@
         document.addEventListener("DOMContentLoaded", function () {
             emailjs.init("UI_-9oyRjZYBAE_F-");  // Replace with your actual public key
         });
+        document.getElementById("disappearBtn").addEventListener("click", function() {
+            document.body.innerHTML = '<div id="message">to request another song please scan the qr code again!/¡Para solicitar otra canción, escanea el código QR nuevamente!</div>';
+});
+
+
 
         // Function to send the email when the button is clicked
         function sendRequest() {
